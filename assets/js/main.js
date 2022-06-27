@@ -32,15 +32,21 @@ function create() {
 
     this.add.sprite(300, 100, 'button1');
 
-    this.add.image(300, 300, 'items', 1);
+    this.chest = this.physics.add.image(300, 300, 'items', 1);
 
-    this.physics.add.image(500, 100, 'button1', 0);
+    this.wall = this.physics.add.image(500, 100, 'button1', 0);
+    this.wall.setImmovable();
     // create character game object
     this.player = this.physics.add.image(32, 32, 'characters', 0);
-    this.player.setScale(2); // NEW
+    this.player.setScale(2); 
+    this.player.body.setCollideWorldBounds(true);
+
+    // adding a collider between player and button for (testing)
+    this.physics.add.collider(this.player, this.wall);
+    this.physics.add.overlap(this.player, this.chest, function() { console.log('overlap'); }, null, this);
     
     // create bindings to the arrow keys
-    this.cursors = this.input.keyboard.createCursorKeys(); // NEW
+    this.cursors = this.input.keyboard.createCursorKeys();
 };
 
 function update() {
