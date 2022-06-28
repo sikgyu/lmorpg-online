@@ -10,11 +10,10 @@ class TitleScene extends Phaser.Scene {
         this.titleText.setOrigin(0.5);
 
         // create a Play Button
-        this.startGameButton = new UiButton(this, this.scale.width / 2 , this.scale.height * 0.65, 'button1', 'button2', 'Start', this.startScene.bind(this, 'Game'));
+        this.startGameButton = new UiButton(this, this.scale.width / 2 , this.scale.height * 0.65, 'button1', 'button2', 'Start', this.startScene.bind(this, 'Game')).setScale(0.8);
         
         // create a Button again
-        this.AnotherButton = new UiButton(this, this.scale.width / 2 , this.scale.height * 0.75, 'button1', 'button2', 'Another Button', this.emailMe.bind(this, 'dlatlrrb@gmail.com'));
-
+        this.AnotherButton = new UiButton(this, this.scale.width / 2 , this.scale.height * 0.75, 'button1', 'button2', 'Email to Sean', this.emailMe.bind(this, 'dlatlrrb@gmail.com')).setScale(0.8);
     }
 
     startScene(targetScene) {
