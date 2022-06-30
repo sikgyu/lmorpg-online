@@ -9,7 +9,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create () {
-        let goldPickupAudio = this.sound.add('goldsound', {loop: false, volume: 0.5});
+        this.goldPickupAudio = this.sound.add('goldsound', {loop: false, volume: 0.5});
 
         let button = this.add.image(100, 100, 'button1');
         button.setOrigin(0.5, 0.5);
@@ -24,7 +24,8 @@ class GameScene extends Phaser.Scene {
 
         // adding a collider between player and button for (testing)
         this.physics.add.collider(this.player, this.wall);
-        this.physics.add.overlap(this.player, this.chest, function(player, chest) { goldPickupAudio.play(); chest.destroy(); }, null, this);
+        // call collectChest function when player overlaps with chest
+        this.physics.add.overlap(this.player, this.chest, this.collectChest, null, this); // this means the scope that we want passed to this function  
         
         // create bindings to the arrow keys
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -32,5 +33,11 @@ class GameScene extends Phaser.Scene {
 
     update() {
         this.player.update(this.cursors);
+    }
+
+    collectChest(player, chest) {
+        this.goldPickupAudio.play();
+        // emit events
+        this.chest.destroy();
     }
 }
