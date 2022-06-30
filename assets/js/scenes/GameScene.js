@@ -3,6 +3,10 @@ class GameScene extends Phaser.Scene {
         // call the constructor of our superclass (parent class)
         super('Game');
     }
+    // this method is first called when our scene is initialized
+    init() {
+        this.scene.launch('Ui');
+    }
 
     create () {
         let goldPickupAudio = this.sound.add('goldsound', {loop: false, volume: 0.5});
