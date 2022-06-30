@@ -3,6 +3,12 @@ class UiScene extends Phaser.Scene {
         // call the constructor of our superclass (parent class)
         super('Ui');
     }
+
+    init() {
+        // grab a reference to the game scene
+        this.gameScene = this.scene.get('Game');
+    }
+
     create () {
         this.setupUIElements();
         this.setupEvents();
@@ -16,6 +22,9 @@ class UiScene extends Phaser.Scene {
     }
 
     setupEvents() {
-
+        // listen for the updateScore event from the game
+        this.gameScene.events.on('updateScore', (score) => {
+            this.scoreText.setText(`Coins: ${score}`);
+        })
     }
 }

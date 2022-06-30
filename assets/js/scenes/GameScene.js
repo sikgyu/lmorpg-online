@@ -36,8 +36,11 @@ class GameScene extends Phaser.Scene {
     }
 
     collectChest(player, chest) {
+        // play gold pickup audio
         this.goldPickupAudio.play();
         // emit events
+        this.events.emit('updateScore', chest.coins);
+        // destroy the chest game object
         this.chest.destroy();
     }
 }
