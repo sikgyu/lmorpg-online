@@ -9,32 +9,40 @@ class GameScene extends Phaser.Scene {
     }
 
     create () {
-        this.goldPickupAudio = this.sound.add('goldsound', {loop: false, volume: 0.5});
+        this.createAudio();
+        this.createPlayer();
+        this.createChests();
+        this.createWalls();
+        this.createInput();
+        this.addCollidsion();
 
-        let button = this.add.image(100, 100, 'button1');
-        button.setOrigin(0.5, 0.5);
-    
-        this.add.sprite(300, 100, 'button1');
-        this.wall = this.physics.add.image(500, 100, 'button1', 0);
-        this.wall.setImmovable();
-        
-        this.chest = new Chest(this, 300, 300, 'items', 0);
-        // create character game object
-        this.player = new Player(this, 32, 32, 'characters', 0);
-
-        // adding a collider between player and button for (testing)
-        this.physics.add.collider(this.player, this.wall);
-        // call collectChest function when player overlaps with chest
-        this.physics.add.overlap(this.player, this.chest, this.collectChest, null, this); // this means the scope that we want passed to this function  
-        
-        // create bindings to the arrow keys
-        this.cursors = this.input.keyboard.createCursorKeys();
     }
-
     update() {
         this.player.update(this.cursors);
     }
-
+    createAudio() {
+        this.goldPickupAudio = this.sound.add('goldsound', {loop: false, volume: 0.5});
+    }
+    createPlayer() {
+        this.player = new Player(this, 32, 32, 'characters', 0);
+    }
+    createChests() {
+        this.chest = new Chest(this, 300, 300, 'items', 0);
+    }
+    createWalls() {
+        this.wall = this.physics.add.image(500, 100, 'button1', 0);
+        this.wall.setImmovable();
+    }
+    createInput() {
+        // create bindings to the arrow keys
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
+    addCollidsion() {
+        // adding a collider between player and button for (testing)
+        this.physics.add.collider(this.player, this.wall);
+        // call collectChest function when player overlaps with chest
+        this.physics.add.overlap(this.player, this.chest, this.collectChest, null, this); // this means the scope that we want passed to this function
+    }
     collectChest(player, chest) {
         // play gold pickup audio
         this.goldPickupAudio.play();
